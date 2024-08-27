@@ -1,0 +1,438 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Business Funnel Page</title>
+    <link rel="stylesheet" href="styles.css"> <!-- Link to your CSS file -->
+    <style>
+@font-face {
+    font-family: 'Built Titling RG';
+    src: url('fonts/built-titling-rg.woff2') format('woff2'),
+         url('fonts/built-titling-rg.woff') format('woff'),
+         url('fonts/built-titling-rg.otf') format('opentype');
+    font-weight: normal;
+    font-style: normal;
+}
+
+body {
+    margin: 0;
+    font-family: 'Built Titling RG', sans-serif;
+    color: white;
+    background-color: grey;
+}
+
+header {
+    display: flex;
+    justify-content: space-between; /* Ensure space between elements */
+    align-items: center; /* Center elements vertically */
+    padding: 10px 20px; /* Reduce padding */
+    position: fixed;
+    width: 100%;
+    top: 0;
+    left: 0;
+    transition: background-color 0.3s ease, transform 0.3s ease;
+    z-index: 1000;
+    box-sizing: border-box;
+}
+
+header.transparent {
+    background-color: transparent;
+}
+
+header.scrolled {
+    background-color: #333;
+}
+
+header.hidden {
+    transform: translateY(-100%);
+}
+
+.phone-number {
+    font-size: 20px; /* Match the size of the logo */
+    display: flex;
+    align-items: center;
+    flex-shrink: 0;
+    position: absolute;
+    left: 20px; /* Align to the left with some padding */
+}
+
+.phone-number svg {
+    margin-right: 8px;
+    fill: #FFD700; /* Set the color to match the logo */
+}
+
+.logo {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-weight: bold;
+    flex-grow: 1;
+    text-align: center;
+    color: #FFD700;
+    z-index: 2;
+    position: relative;
+}
+
+.logo img {
+	margin-top:5%;
+    width: 250px;
+    height: auto;
+}
+
+
+.menu-button {
+    font-size: 20px; /* Match the size of the logo */
+    background: none;
+    border: none;
+    color: white;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    position: absolute;
+    right: 20px; /* Align to the right with some padding */
+}
+
+.menu-button::after {
+    content: "\2630";
+    font-size: 24px;
+    margin-left: 8px;
+}
+
+.main-content {
+    text-align: center;
+    padding-top: 70px; /* Reduced padding to bring title closer to the navbar */
+    padding-bottom: 20px;
+    margin-top: 0; /* Removed additional margin */
+}
+
+.main-content h1 {
+    font-size: 48px;
+    line-height: 1.2;
+    font-weight: bold;
+    margin-bottom: 10px; /* Reduced bottom margin */
+}
+
+
+.title-image {
+    width: 100%;
+    height: 400px; /* Adjust the height to fit the image aspect ratio */
+    background-image: url('poze/titlu.png');
+    background-size: contain; /* Ensure the image scales correctly */
+    background-repeat: no-repeat; /* Prevent the image from repeating */
+    background-position: center; /* Center the image */
+    margin-bottom: 20px; /* Add some space below the image */
+}
+
+
+.subtitle {
+    font-size: 24px;
+    margin: 10px 0 30px 0; /* Reduced top margin */
+    color: #ffffff;
+    opacity: 0.8;
+    font-weight: 400;
+    line-height: 1.5;
+}
+
+.email-signup {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: #f1f1f1;
+    padding: 10px;
+    border-radius: 50px;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+    max-width: 700px;
+    margin: 0 auto 40px auto; /* Reduced gap below input */
+    background-color: white;
+}
+
+.email-signup input[type="email"] {
+    padding: 15px 20px;
+    font-size: 16px;
+    border: none;
+    flex-grow: 1;
+    border-radius: 50px 0 0 50px;
+    outline: none;
+    background-color: #e9e9e9;
+    color: #333;
+}
+
+.email-signup button {
+    padding: 15px 30px;
+    font-size: 16px;
+    border: none;
+    background-color: #c5ff00;
+    color: black;
+    cursor: pointer;
+    border-radius: 0 50px 50px 0;
+    outline: none;
+    font-weight: bold;
+}
+
+.emoji {
+    font-size: 24px;
+    margin-right: 10px;
+    align-self: center; /* Center the emoji vertically */
+}
+
+.email-signup input::placeholder {
+    font-size: 16px;
+    color: #999;
+}
+
+.reviews {
+    text-align: center;
+    font-size: 14px;
+    margin-top: 20px;
+    color: #ccc;
+}
+
+.reviews .stars {
+    color: #ffd700;
+    margin-right: 5px;
+}
+
+.reviews .review-text {
+    color: white;
+    font-weight: bold;
+}
+
+.video-wrapper {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 20px 0;
+}
+
+.video-container {
+    position: relative;
+    width: 35vw; /* Initial width for the video */
+    height: calc(35vw * 9 / 16); /* Maintain 16:9 aspect ratio */
+    border-radius: 15px; /* Rounded corners */
+    overflow: hidden; /* Ensure the corners are rounded */
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3); /* Shadow for the container */
+    transition: width 0.3s ease, height 0.3s ease; /* Smooth transition */
+}
+
+#video {
+    width: 100%;
+    height: 100%;
+    border: none;
+}
+
+.video-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5); /* Dark overlay */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+    transition: opacity 0.3s ease;
+}
+
+.play-pause-button {
+    width: 80px; /* Ensure circular shape */
+    height: 80px; /* Ensure circular shape */
+    background-color: rgba(0, 0, 0, 0.7);
+    border-radius: 50%; /* Make the button circular */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    box-shadow: 0 3px 10px rgba(0, 0, 0, 0.3);
+    transition: transform 0.3s ease, opacity 0.3s ease;
+}
+
+.play-pause-button:hover {
+    transform: scale(1.1); /* Slight zoom effect on hover */
+}
+
+@media (max-width: 768px) {
+    header {
+        flex-direction: row;
+    }
+
+    .phone-number,
+    .menu-button {
+        position: static; /* Reset position for mobile */
+        margin: 10px 0;
+        width: 100%; /* Full width on small screens */
+        text-align: center; /* Center align them */
+    }
+
+    .menu-button {
+        margin-top: 5px; /* Add some spacing on smaller screens */
+    }
+}
+
+</style>
+</head>
+
+<body>
+    <header class="transparent">
+        <div class="phone-number">
+			<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="#FFD700">
+				<path d="M6.62 10.79a15.466 15.466 0 006.59 6.59l2.2-2.2c.27-.27.67-.36 1.02-.24a11.72 11.72 0 003.67.61c.55 0 1 .45 1 1v3.48c0 .55-.45 1-1 1C11.85 22 2 12.15 2 2c0-.55.45-1 1-1h3.48c.55 0 1 .45 1 1 0 1.28.21 2.52.61 3.67.11.36.02.76-.25 1.03l-2.2 2.2z"/>
+			</svg>
+			0800-368-5476
+		</div>
+        <div class="logo">
+			<center><a href="index.html"><img src="poze/logo.png"></a></center>
+        </div>
+        <button class="menu-button">
+            MENU
+        </button>
+    </header>
+
+    <main class="main-content">
+		<div class="main-content">
+			<div class="title-image"></div>
+			<p class="subtitle">Growing a business is hard. We make it a whole lot easier, more predictable, less stressful, and more fun.</p>
+		</div>
+
+        <div class="email-signup">
+			<span class="emoji">👋</span>
+			<input type="email" placeholder="Enter your email here and we'll send you some 'magic'...">
+			<button>Do it ➔</button>
+		</div>
+
+        <div class="reviews">
+            <span class="review-text">*But it's 100% legal (pinky promise)</span><br>
+            <span class="stars">⭐⭐⭐⭐⭐</span>
+            <span class="review-text">4.8 stars out of 5,847 reviews</span>
+        </div>
+		<div class="video-wrapper">
+			<div class="video-container" id="videoContainer">
+				<video id="video" width="600" height="400">
+					<source src="video/prezentare.mp4" type="video/mp4">
+					Your browser does not support the video tag.
+				</video>
+				<div class="video-overlay" id="videoOverlay">
+					<div class="play-pause-button" id="playPauseButton">
+						<!-- Play icon -->
+						<svg id="playIcon" width="50" height="50" viewBox="0 0 24 24">
+							<path fill="white" d="M8 5v14l11-7z"></path>
+						</svg>
+						<!-- Pause icon -->
+						<svg id="pauseIcon" width="50" height="50" viewBox="0 0 24 24" style="display: none;">
+							<path fill="white" d="M6 19h4V5H6v14zm8-14v14h4V5h-4z"></path>
+						</svg>
+					</div>
+				</div>
+			</div>
+		</div>
+
+
+    </main>
+
+    <div class="content-section">
+        <!-- Additional content to enable scrolling -->
+    </div>
+
+    <script>
+        // Handle scrolling and resizing of the video
+	window.addEventListener('scroll', function() {
+		const videoContainer = document.getElementById('videoContainer');
+		const videoPosition = videoContainer.getBoundingClientRect().top;
+		const windowHeight = window.innerHeight;
+		const scrollY = window.scrollY || window.pageYOffset;
+
+		// Start scaling only after scrolling 25px down
+		if (scrollY > 25) {
+			// Calculate the distance of the video from the center of the viewport
+			const distanceFromCenter = Math.abs((windowHeight / 2) - (videoPosition + videoContainer.clientHeight / 2));
+
+			// Calculate the scaling factor based on distance
+			let scale = 1 - (distanceFromCenter / (windowHeight / 2));
+			scale = Math.max(0.35, Math.min(scale, 1)); // Ensure scale is between 0.35 and 1
+
+			// Apply the scale to the width (starting from 35% to 85%)
+			const newWidth = `${35 + (scale * 40)}vw`;
+			const newHeight = `calc(${35 + (scale * 40)}vw * 9 / 16)`;
+
+			videoContainer.style.width = newWidth;
+			videoContainer.style.height = newHeight;
+		} else {
+			// Reset to original size if above 25px
+			videoContainer.style.width = '35vw';
+			videoContainer.style.height = 'calc(35vw * 9 / 16)';
+		}
+	});
+
+	// Play/Pause Button Functionality
+	const video = document.getElementById('video');
+	const videoOverlay = document.getElementById('videoOverlay');
+	const playPauseButton = document.getElementById('playPauseButton');
+	const playIcon = document.getElementById('playIcon');
+	const pauseIcon = document.getElementById('pauseIcon');
+
+	let hideTimeout;
+
+	// Play/Pause Functionality
+	playPauseButton.addEventListener('click', function() {
+		if (video.paused) {
+			video.play();
+			playIcon.style.display = 'none';
+			pauseIcon.style.display = 'block';
+		} else {
+			video.pause();
+			playIcon.style.display = 'block';
+			pauseIcon.style.display = 'none';
+		}
+		hideOverlay();
+	});
+
+	// Hide overlay when playing
+	video.addEventListener('play', function() {
+		hideOverlay();
+	});
+
+	// Show overlay on mouse move
+	videoOverlay.addEventListener('mousemove', function() {
+		clearTimeout(hideTimeout);
+		videoOverlay.style.opacity = '1';
+		hideTimeout = setTimeout(hideOverlay, 2000); // Hide after 2 seconds of inactivity
+	});
+
+	function hideOverlay() {
+		hideTimeout = setTimeout(function() {
+			videoOverlay.style.opacity = '0';
+		}, 2000); // Hide after 2 seconds
+	}
+
+	// Show overlay when video is paused
+	video.addEventListener('pause', function() {
+		videoOverlay.style.opacity = '1';
+		clearTimeout(hideTimeout);
+	});
+
+	// Ensure overlay is visible when video ends
+	video.addEventListener('ended', function() {
+		videoOverlay.style.opacity = '1';
+		playIcon.style.display = 'block';
+		pauseIcon.style.display = 'none';
+	});
+	
+	document.getElementById('videoContainer').addEventListener('click', function() {
+    const videoContainer = document.getElementById('videoContainer');
+    if (videoContainer.requestFullscreen) {
+        videoContainer.requestFullscreen();
+    } else if (videoContainer.mozRequestFullScreen) { /* Firefox */
+        videoContainer.mozRequestFullScreen();
+    } else if (videoContainer.webkitRequestFullscreen) { /* Chrome, Safari & Opera */
+        videoContainer.webkitRequestFullscreen();
+    } else if (videoContainer.msRequestFullscreen) { /* IE/Edge */
+        videoContainer.msRequestFullscreen();
+    }
+});
+
+
+	</script>
+</body>
+
+</html>
